@@ -1,14 +1,14 @@
 const electron = require('electron');
+const path = require('path');
+const setupPug = require('electron-pug');
+
 const app = electron.app;
 const ipcMain = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
-const path = require('path');
-const setupPug = require('electron-pug');
 
 const inProduction = app.isPackaged;
 
 let mainWindow;
-let childWindow;
 const preload = path.join(
     __dirname, 
     '../',
@@ -16,8 +16,31 @@ const preload = path.join(
 );
 
 async function createWindow() {
+
+    const api = {
+        config: { appName: 'Desktop Multi-Window App', },
+        title: 'Dashboard',
+        session: {
+            page: {
+                title: 'Dashboard', 
+            },
+            auth: {
+                name: 'Jane Doe',
+                lastLogin: '2023-07-03 16:40:00',
+                permissions: [
+                    'view client',
+                    'create client',
+                    'view user',
+                    'create user',
+                    'view log',
+                    'create log',
+                ], 
+            },
+        },
+    };
+
     try {
-        await setupPug({pretty: true}, { appName: 'Desktop Multi-Window App', })
+        await setupPug({pretty: true}, api);
     } catch (err) {
         throw new Error('Could not initiate \'electron-pug\`: '+err.message);
     }
@@ -42,7 +65,7 @@ async function createWindow() {
     mainWindow.loadURL(`file://${path.join(
         __dirname, 
         '../', 
-        'src/views/index.pug', // index.pug?exampleArg=test
+        'src/views/home.pug', // index.pug?exampleArg=test
     )}`);
 
     mainWindow.maximize();
@@ -50,42 +73,6 @@ async function createWindow() {
 
     mainWindow.on('closed', () => (mainWindow = null));
 }
-
-// Function to create child window of parent one
-function createChildWindow() {
-    childWindow = new BrowserWindow({
-        width: 1000,
-        height: 700,
-        modal: true,
-        show: false,
-        parent: mainWindow,
-        webPreferences: {
-            preload,
-            nodeIntegration: true,
-            contextIsolation: true,
-            enableRemoteModule: true,
-        },
-    });
-    
-    childWindow.loadURL(`file://${path.join(
-        __dirname, 
-        '../', 
-        'src/views/settings.pug',
-    )}`);
-    
-    childWindow.once('ready-to-show', () => {
-      childWindow.show();
-    });
-}
-
-ipcMain.on('openChildWindow', (event, arg) => {
-    createChildWindow();
-});
-
-ipcMain.on('closeChildWindow', (event, arg) => {
-    childWindow.close();
-    // win.webContents.send("openChildWindow", responseObj);
-});
 
 app.on('ready', createWindow);
 
