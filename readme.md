@@ -1,6 +1,6 @@
 <img src="https://github.com/kkamara/useful/blob/main/drb.png?raw=true" alt="drb.png" />
 
-<img src="https://github.com/kkamara/useful/blob/main/nodejs-crm.png?raw=true" alt="nodejs-crm.png" />
+<img src="https://github.com/kkamara/useful/blob/main/nodejs-crm-desktop.png?raw=true" alt="nodejs-crm-desktop.png" />
 
 # nodejs-crm-desktop
 
