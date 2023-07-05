@@ -105,10 +105,7 @@
                     <div class="row">
                         <div style="color:white;" class="col-lg-12">
                             <h3 class="page-header text-center lead"></h3>
-                            <div style="color:white;font-size:14px;" class="pull-right">
-                                Logged in as Jane Doe
-                                2023-07-05 16:28:00
-                            </div>
+                            <div style="color:white;font-size:14px;" class="last-login pull-right"></div>
                             <div class="pull-left hide">
                                 <ol class="breadcrumb">
                                     <li class="breadcrum-item"><a href="/">Home</a></li>
@@ -163,11 +160,14 @@
       const run = async () => {
         const res = await getHome();
         console.log(res);
-        const pageHeader = document
-          .querySelector('.page-header');
-          pageHeader.textContent = res.data.routeName;
+        document
+          .querySelector('.page-header')
+          .textContent = res.data.routeName;
+        document
+          .querySelector('.last-login')
+          .textContent = 
+            `Last logged in as ${res.data.user.auth.name} ${res.data.user.auth.lastLogin}`;
       }
-
       run();
     </script>
 </body>
