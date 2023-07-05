@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../nodejs-crm"
+		},
+		{
+			"path": "../crm"
+		}
+	]
+}
