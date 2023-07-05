@@ -9,10 +9,15 @@ const inProduction = app.isPackaged;
 
 let mainWindow;
 let childWindow;
+const preload = path.join(
+    __dirname, 
+    '../',
+    'preload.js',
+);
 
 async function createWindow() {
     try {
-        let pug = await setupPug({pretty: true}, { appName: 'Desktop Multi-Window App', })
+        await setupPug({pretty: true}, { appName: 'Desktop Multi-Window App', })
     } catch (err) {
         throw new Error('Could not initiate \'electron-pug\`: '+err.message);
     }
@@ -21,9 +26,10 @@ async function createWindow() {
         width: 900, 
         height: 680, 
         webPreferences: {
+            preload,
             devTools: inProduction ? false : true,
             nodeIntegration: true,
-            contextIsolation: false,
+            contextIsolation: true,
             enableRemoteModule: true,
         },
         show: false,
@@ -54,8 +60,9 @@ function createChildWindow() {
         show: false,
         parent: mainWindow,
         webPreferences: {
+            preload,
             nodeIntegration: true,
-            contextIsolation: false,
+            contextIsolation: true,
             enableRemoteModule: true,
         },
     });
@@ -66,17 +73,18 @@ function createChildWindow() {
         'src/views/settings.pug',
     )}`);
     
-    childWindow.once("ready-to-show", () => {
+    childWindow.once('ready-to-show', () => {
       childWindow.show();
     });
 }
 
-ipcMain.on("openChildWindow", (event, arg) => {
+ipcMain.on('openChildWindow', (event, arg) => {
     createChildWindow();
 });
 
-ipcMain.on("closeChildWindow", (event, arg) => {
+ipcMain.on('closeChildWindow', (event, arg) => {
     childWindow.close();
+    // win.webContents.send("openChildWindow", responseObj);
 });
 
 app.on('ready', createWindow);
