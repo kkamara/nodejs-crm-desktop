@@ -31,7 +31,7 @@
                   <a href="/"><i style='color:red;' class="fa fa-fw fa-home"></i> Dashboard</a>
                 </li>
                 <!-- @can('view client') -->
-                <li class="hide dropdown">
+                <li class="client-options hide dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i style='color:green;' class="fa fa-fw fa-briefcase"></i> Clients <span class="caret"></span>
                   </a>
@@ -39,7 +39,7 @@
                     <li class="dropdown-header">Client Options</li>
                     <li><a href="#">View Clients</a></li>
                     <!-- @can('create client') -->
-                    <li><a href="#">Create Client</a></li>
+                    <li class="create-client hide"><a href="#">Create Client</a></li>
                     <!-- @endcan -->
                   </ul>
                 </li>
@@ -146,6 +146,7 @@
     <script src="../../public/js/axios.min.js" type="text/javascript"></script>
     <script src="../../public/js/app.js" type="text/javascript"></script>
     <script>
+      /* @returns {object} */
       const getHome = async () => {
         const apiDomain = 'http://localhost:3000';
         const homeRes = await axios.get(`${apiDomain}/api/v1`)
@@ -157,6 +158,23 @@
           });
         return homeRes;
       };
+      
+      /**
+       * @param {object} auth - The authenticated user's auth details.
+       * @returns {void}
+       */
+      const renderNavbar = (auth) => {
+        if (auth.permissions.includes('view client')) {
+          document.querySelector('.client-options')
+            .classList
+            .remove('hide');
+        }
+        if (auth.permissions.includes('create client')) {
+          document.querySelector('.create-client')
+            .classList
+            .remove('hide');
+        }
+      };
       const run = async () => {
         const res = await getHome();
         console.log(res);
@@ -167,6 +185,8 @@
           .querySelector('.last-login')
           .textContent = 
             `Last logged in as ${res.data.user.auth.name} ${res.data.user.auth.lastLogin}`;
+
+        renderNavbar(res.data.user.auth);
       };
       run();
     </script>
