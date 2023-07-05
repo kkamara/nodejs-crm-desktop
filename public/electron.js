@@ -1,5 +1,6 @@
 const electron = require('electron');
 const path = require('path');
+const { getHome, } = require('../src/home.js');
 
 const app = electron.app;
 const ipcMain = electron.ipcMain;
