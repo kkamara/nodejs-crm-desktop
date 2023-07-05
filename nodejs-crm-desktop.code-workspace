@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../crm"
+		},
+		{
+			"path": "../desktop-multi-window-app"
 		}
 	]
 }
