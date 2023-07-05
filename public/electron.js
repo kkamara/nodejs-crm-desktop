@@ -1,6 +1,5 @@
 const electron = require('electron');
 const path = require('path');
-const setupPug = require('electron-pug');
 
 const app = electron.app;
 const ipcMain = electron.ipcMain;
@@ -38,12 +37,6 @@ async function createWindow() {
             },
         },
     };
-
-    try {
-        await setupPug({pretty: true}, api);
-    } catch (err) {
-        throw new Error('Could not initiate \'electron-pug\`: '+err.message);
-    }
     
     mainWindow = new BrowserWindow({ 
         width: 900, 
@@ -58,14 +51,14 @@ async function createWindow() {
         show: false,
      });
 
-     if (!inProduction) {
+    if (!inProduction) {
         mainWindow.webContents.openDevTools();
-     }
+    }
 
     mainWindow.loadURL(`file://${path.join(
         __dirname, 
         '../', 
-        'src/views/home.pug', // index.pug?exampleArg=test
+        'src/views/home.html', // index.html?exampleArg=test
     )}`);
 
     mainWindow.maximize();
