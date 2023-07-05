@@ -1,0 +1,25 @@
+{
+    "results": {
+        "uid": 1,
+        "title": "Title not available",
+        "author": "Jane Doe"
+    },
+    "routeName": "Dashboard",
+    "user": {
+        "page": {
+            "title": "Dashboard"
+        },
+        "auth": {
+            "name": "Jane Doe",
+            "lastLogin": "2023-07-03 16:40:00",
+            "permissions": [
+                "view client",
+                "create client",
+                "view user",
+                "create user",
+                "view log",
+                "create log"
+            ]
+        }
+    }
+}
