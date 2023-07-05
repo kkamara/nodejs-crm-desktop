@@ -8,7 +8,7 @@
 
 ## Download
 
-* [macOs](https://github.com/kkamara/desktop-multi-window-app/releases).
+* [macOs](https://github.com/kkamara/nodejs-crm-desktop/releases).
 
 ## Installation
 

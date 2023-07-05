@@ -7,7 +7,7 @@
   "main": "public/electron.js",
   "homepage": "./",
   "build": {
-    "appId": "<com.desktop-multi-window-app>"
+    "appId": "<com.nodejs-crm-desktop>"
   },
   "scripts": {
     "electron-build": "electron-builder",
