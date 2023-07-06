@@ -7,7 +7,8 @@ const BrowserWindow = electron.BrowserWindow;
 
 const inProduction = app.isPackaged;
 
-let mainWindow;
+let mainWindow = null;
+let apiDomain = null;
 const preload = path.join(
     __dirname, 
     '../',
@@ -15,7 +16,6 @@ const preload = path.join(
 );
 
 async function createWindow() {
-
     const api = {
         config: { appName: 'Desktop Multi-Window App', },
         title: 'Dashboard',
@@ -53,12 +53,14 @@ async function createWindow() {
 
     if (!inProduction) {
         mainWindow.webContents.openDevTools();
+        apiDomain = 'http://localhost:3000';
+    } else {
+        apiDomain = null;
     }
 
     mainWindow.loadURL(`file://${path.join(
         __dirname, 
-        '../', 
-        'src/views/home.html', // index.html?exampleArg=test
+        '/views/home.html', // index.html?exampleArg=test
     )}`);
 
     mainWindow.maximize();
@@ -66,6 +68,13 @@ async function createWindow() {
 
     mainWindow.on('closed', () => (mainWindow = null));
 }
+
+ipcMain.on('getApiDomain', () => {
+    mainWindow.webContents.send(
+        'getApiDomainData', 
+        apiDomain,
+    );    
+});
 
 app.on('ready', createWindow);
 
