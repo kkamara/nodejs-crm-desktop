@@ -33,11 +33,27 @@ const getHome = async () => {
 const run = async () => {
   let res = null;
   try {
+    const handleFlashes = () => {
+      if (res.data.user.auth.flashSuccess) {
+        document.querySelector('.flash-success')
+          .classList
+          .remove('hide');
+      }
+      if (res.data.user.auth.flashDanger) {
+        document.querySelector('.flash-danger')
+          .classList
+          .remove('hide');
+      }
+    };
+    
     res = await getHome();
+    
     console.log(res);
     document
       .querySelector('.page-header')
       .textContent = res.data.routeName;
+
+    handleFlashes();
     
     const lastLoggedIn = moment(res.data.user.auth.lastLogin).fromNow();
     document

@@ -59,8 +59,9 @@ async function createWindow() {
     }
 
     mainWindow.loadURL(`file://${path.join(
-        __dirname, 
-        '/views/home.html', // index.html?exampleArg=test
+        __dirname,
+        '/../', 
+        'src/views/home.html', // index.html?exampleArg=test
     )}`);
 
     mainWindow.maximize();
