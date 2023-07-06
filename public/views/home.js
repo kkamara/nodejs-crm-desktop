@@ -10,8 +10,7 @@ const getHome = async () => {
         apiDomain = domain;
         if (null === domain) {
           const err = Error(
-            'The server seems to be down right now. Please try again and contact the support team. '+
-            'Please quit the app.'
+            'The server seems to be down right now. Please try again and contact the support team. '
           );
           reject(err);
         }
@@ -39,14 +38,16 @@ const run = async () => {
     document
       .querySelector('.page-header')
       .textContent = res.data.routeName;
+    
+    const lastLoggedIn = moment(res.data.user.auth.lastLogin).fromNow();
     document
       .querySelector('.last-login')
       .textContent = 
-        `Last logged in as ${res.data.user.auth.name} ${res.data.user.auth.lastLogin}`;
+        `Last logged in as ${res.data.user.auth.name} ${lastLoggedIn}`;
 
     renderNavbar(res.data.user.auth);
   } catch (err) {
-    alert(err.message);
+    alert(err.message+' Please quit the app.');
   }
 };
 
