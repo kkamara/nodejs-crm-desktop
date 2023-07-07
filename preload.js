@@ -10,13 +10,15 @@ contextBridge.exposeInMainWorld(
                 'openChildWindow', 
                 'closeChildWindow',
                 'getApiDomain',
+                'getLogin',
+
             ];
             if (validChannels.includes(channel)) {
                 ipcRenderer.send(channel, data);
             }
         },
         receive: (channel, func) => {
-            const validChannels = ['getApiDomainData'];
+            const validChannels = ['getApiDomainData', 'getLoginData',];
             if (validChannels.includes(channel)) {
                 // Deliberately strip event as it includes `sender` 
                 ipcRenderer.on(channel, (event, ...args) => func(...args));

@@ -1,0 +1,20 @@
+{
+  "results": {
+      "uid": 1,
+      "title": "Title not available",
+      "author": "Jane Doe"
+  },
+  "routeName": "Login",
+  "user": {
+      "page": {
+          "loginEmails": [
+            "admin@mail.com",
+            "clientadmin@mail.com",
+            "clientuser@mail.com"
+          ],
+          "title": "Login",
+          "error": null
+      },
+      "auth": null
+  }
+}

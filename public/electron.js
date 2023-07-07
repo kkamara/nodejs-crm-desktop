@@ -15,29 +15,7 @@ const preload = path.join(
     'preload.js',
 );
 
-async function createWindow() {
-    const api = {
-        config: { appName: 'Desktop Multi-Window App', },
-        title: 'Dashboard',
-        session: {
-            page: {
-                title: 'Dashboard', 
-            },
-            auth: {
-                name: 'Jane Doe',
-                lastLogin: '2023-07-03 16:40:00',
-                permissions: [
-                    'view client',
-                    'create client',
-                    'view user',
-                    'create user',
-                    'view log',
-                    'create log',
-                ], 
-            },
-        },
-    };
-    
+async function createWindow() {    
     mainWindow = new BrowserWindow({ 
         width: 900, 
         height: 680, 
@@ -75,6 +53,26 @@ ipcMain.on('getApiDomain', () => {
         'getApiDomainData', 
         apiDomain,
     );    
+});
+
+ipcMain.on('getLogin', ()=> {
+    const api = {
+        config: { appName: 'Desktop Multi-Window App', },
+        title: 'Login',
+        user: {
+            page: {
+                loginEmails: [
+                    "admin@mail.com",
+                    "clientadmin@mail.com",
+                    "clientuser@mail.com",
+                ],
+                title: 'Login', 
+                error: 'Username not provided.',
+            },
+            auth: null,
+        },
+    }
+    mainWindow.webContents.send('getLoginData', { data: api, });
 });
 
 app.on('ready', createWindow);

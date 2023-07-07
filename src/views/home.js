@@ -51,7 +51,7 @@ const run = async () => {
     console.log(res);
     document
       .querySelector('.page-header')
-      .textContent = res.data.routeName;
+      .textContent = res.data.user.page.title;
 
     handleFlashes();
     

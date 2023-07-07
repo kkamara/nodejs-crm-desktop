@@ -3,6 +3,7 @@ let apiDomain = null;
 
 /* @returns {object} */
 const getLogin = async () => {
+  let loginRes = null;
   try {
     await new Promise((resolve, reject) => {
       window.api.send('getApiDomain');
@@ -20,13 +21,23 @@ const getLogin = async () => {
   } catch (err) {
     throw err;
   }
-  const loginRes = await axios.get(`${apiDomain}/api/v1/auth/`)
-    .then(data => data.data)
-    .catch(err => {
-      if (err) {
-        throw err;
-      }
+  try {
+    await new Promise((resolve, reject) => {
+      window.api.send('getLogin');
+      window.api.receive('getLoginData', function (domain) {
+        loginRes = domain;
+        if (null === domain) {
+          const err = Error(
+            'The server seems to be down right now. Please try again and contact the support team. '
+          );
+          reject(err);
+        }
+        resolve();
+      });
     });
+  } catch (err) {
+    throw err;
+  }
   return loginRes;
 };
 
@@ -41,7 +52,7 @@ const run = async () => {
     
     document
       .querySelector('.page-header')
-      .textContent = res.data.routeName;
+      .textContent = res.data.user.page.title;
 
     renderNavbar(res.data.user.auth);
 
@@ -49,10 +60,10 @@ const run = async () => {
 
     document.querySelector('.creds-container')
       .innerHTML = `
-      <p style='color:#000'>Creds</p>
-      <ul>
-        ${req.data.page.loginEmails.map((email, key) => '<li>'+email+'</li>').join('')}
-      </ul>
+        <p style='color:#000'>Creds</p>
+        <ul>
+          ${res.data.user.page.loginEmails.map((email, key) => '<li>'+email+'</li>').join('')}
+        </ul>
       `;
     
     const handleErrors = page => {

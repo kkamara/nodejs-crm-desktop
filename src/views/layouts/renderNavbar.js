@@ -3,6 +3,9 @@
  * @returns {void}
  */
 const renderNavbar = (auth) => {
+  if (!auth) {
+    return;
+  }
   if (auth.permissions.includes('view client')) {
     document.querySelector('.client-options')
       .classList
