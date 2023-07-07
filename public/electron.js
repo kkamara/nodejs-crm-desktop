@@ -55,26 +55,6 @@ ipcMain.on('getApiDomain', () => {
     );    
 });
 
-ipcMain.on('getLogin', ()=> {
-    const api = {
-        config: { appName: 'Desktop Multi-Window App', },
-        title: 'Login',
-        user: {
-            page: {
-                loginEmails: [
-                    "admin@mail.com",
-                    "clientadmin@mail.com",
-                    "clientuser@mail.com",
-                ],
-                title: 'Login', 
-                error: 'Username not provided.',
-            },
-            auth: null,
-        },
-    }
-    mainWindow.webContents.send('getLoginData', { data: api, });
-});
-
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {

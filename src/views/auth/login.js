@@ -22,19 +22,8 @@ const getLogin = async () => {
     throw err;
   }
   try {
-    await new Promise((resolve, reject) => {
-      window.api.send('getLogin');
-      window.api.receive('getLoginData', function (domain) {
-        loginRes = domain;
-        if (null === domain) {
-          const err = Error(
-            'The server seems to be down right now. Please try again and contact the support team. '
-          );
-          reject(err);
-        }
-        resolve();
-      });
-    });
+    const res = await axios.get(`${apiDomain}/api/v1/auth`);
+    loginRes = res.data;
   } catch (err) {
     throw err;
   }
