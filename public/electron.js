@@ -39,8 +39,8 @@ async function createWindow() {
     mainWindow.loadURL(`file://${path.join(
         __dirname,
         '/../', 
-        'src/views/auth/login.html', // index.html?exampleArg=test
-    )}`);
+        'src/views/auth/login.html', 
+    )}`); // index.html?exampleArg=test
 
     mainWindow.maximize();
     mainWindow.show();
