@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../desktop-multi-window-app"
+		},
+		{
+			"path": "../nodejs-crypto3"
 		}
 	]
 }
