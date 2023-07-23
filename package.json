@@ -11,7 +11,7 @@
   },
   "scripts": {
     "electron-build": "electron-builder",
-    "builder:build": "electron-builder --linux --win --mac --x64 --ia32 --publish never",
+    "builder:build": "electron-builder --win --x64 --publish never",
     "release": "npm run build && npm run builder:build",
     "build": "npm run electron-build",
     "start": "electron .",
@@ -20,7 +20,7 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "electron": "^25.1.0",
-    "electron-builder": "^23.6.0",
+    "electron-builder": "^21",
     "electronmon": "^2.0.2"
   },
   "dependencies": {}
