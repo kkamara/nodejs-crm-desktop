@@ -15,7 +15,7 @@
     "release": "npm run build && npm run builder:build",
     "build": "npm run electron-build",
     "start": "electron .",
-    "dev": "electronmon public/electron.js"
+    "dev": "yarn electronmon public/electron.js --trace-warnings"
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
