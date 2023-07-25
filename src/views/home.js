@@ -45,6 +45,11 @@ const run = async () => {
           .remove('hide');
       }
     };
+
+    const token = localStorage.getItem('token');
+    if (null === token) {
+      window.api.send('showLogin');
+    }
     
     res = await getHome();
     

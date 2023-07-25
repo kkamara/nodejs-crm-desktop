@@ -47,12 +47,36 @@ async function createWindow() {
 
     mainWindow.on('closed', () => (mainWindow = null));
 }
+ 
+function showHomepage() {
+    mainWindow.loadURL(`file://${path.join(
+        __dirname,
+        '/../', 
+        'src/views/home.html', 
+    )}`);
+}
+ 
+function showLogin() {
+    mainWindow.loadURL(`file://${path.join(
+        __dirname,
+        '/../', 
+        'src/views/auth/login.html', 
+    )}`);
+}
 
 ipcMain.on('getApiDomain', () => {
     mainWindow.webContents.send(
         'getApiDomainData', 
         apiDomain,
     );    
+});
+
+ipcMain.on('showHomepage', () => {
+    showHomepage();
+});showLogin
+
+ipcMain.on('showLogin', () => {
+    showLogin();
 });
 
 app.on('ready', createWindow);

@@ -9,6 +9,8 @@ contextBridge.exposeInMainWorld(
             const validChannels = [
                 'openChildWindow', 
                 'closeChildWindow',
+                'showHomepage',
+                'showLogin',
                 'getApiDomain',
                 'getLogin',
 

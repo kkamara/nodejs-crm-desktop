@@ -46,7 +46,11 @@ const run = async () => {
           { email, password, },
         );
         const loginRes = res.data;
-        console.log(loginRes);
+        localStorage.setItem(
+          'token',
+          loginRes.data.data.auth.token,
+        );
+        window.api.send('showHomepage');      
       } catch (err) {
         throw err;
       }
@@ -72,10 +76,10 @@ const run = async () => {
         </ul>
       `;
     
-    const handleErrors = page => {
+    const handleErrors = error => {
         document.querySelector('.errors-container')
           .innerHTML = `
-            <li class="list-group-item-danger">${page.error}</li>
+            <li class="list-group-item-danger">${error}</li>
           `;
 
         document.querySelector('.errors-container')
