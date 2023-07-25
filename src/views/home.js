@@ -63,7 +63,7 @@ const run = async () => {
 
     renderNavbar(res.data.user.auth);
   } catch (err) {
-    alert(err.message+' Please quit the app.');
+    alert(err.message+' Please quit and reopen the app.');
   }
 };
 

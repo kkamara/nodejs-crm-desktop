@@ -66,7 +66,7 @@ const run = async () => {
           .remove('hide');
     };
   } catch (err) {
-    alert(err.message+' Please quit the app.');
+    alert(err.message+' Please quit and reopen the app.');
   }
 };
 
