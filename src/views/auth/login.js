@@ -30,6 +30,27 @@ const getLogin = async () => {
   return loginRes;
 };
 
+const handleSubmit = async (event) => {
+  console.log(1);
+  event.preventDefault();
+  const email = event.target.elements.email.value;
+  const password = event.target.elements.password.value;
+  let res;
+  try {
+    res = await axios.post(
+      `${apiDomain}/api/v1/auth`,
+      { email, password, },
+    );
+    const loginRes = res.data;
+    console.log(loginRes);
+  } catch (err) {
+    throw err;
+  }
+};
+
+document.querySelector('.loginForm')
+  .addEventListener('submit', handleSubmit);
+
 const run = async () => {
   let res = null;
   try {
@@ -44,9 +65,7 @@ const run = async () => {
       .textContent = res.data.user.page.title;
 
     renderNavbar(res.data.user.auth);
-
-    const loginForm = document.querySelector('.login-form');
-
+    
     document.querySelector('.creds-container')
       .innerHTML = `
         <p style='color:#000'>Creds</p>
