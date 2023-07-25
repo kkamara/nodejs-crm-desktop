@@ -31,6 +31,10 @@ const getLogin = async () => {
 };
 
 const run = async () => {
+  const token = localStorage.getItem('token');
+  if (null !== token) {
+    window.api.send('showHomepage');
+  }
   let res = null;
   try {
     /** @param event */
