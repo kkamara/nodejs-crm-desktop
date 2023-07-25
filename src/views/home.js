@@ -20,7 +20,20 @@ const getHome = async () => {
   } catch (err) {
     throw err;
   }
-  const homeRes = await axios.get(`${apiDomain}/api/v1`)
+  const token = localStorage.getItem('token');
+  if (null === token) {
+    return window.api.send('showLogin');
+  }
+
+  const homeRes = await axios.post(
+    `${apiDomain}/api/v1/auth/authenticate`,
+    null,
+    {
+      headers: {
+        Authorization: `Basic ${token}`,
+      },
+    },
+  )
     .then(data => data.data)
     .catch(err => {
       if (err) {
@@ -45,11 +58,6 @@ const run = async () => {
           .remove('hide');
       }
     };
-
-    const token = localStorage.getItem('token');
-    if (null === token) {
-      window.api.send('showLogin');
-    }
     
     res = await getHome();
     
