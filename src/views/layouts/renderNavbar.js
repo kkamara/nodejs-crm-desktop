@@ -3,7 +3,7 @@
  * @returns {void}
  */
 const renderNavbar = (auth) => {
-  if (!auth) {
+  if (!auth || !auth.permissions) {
     return;
   }
   if (auth.permissions.includes('view client')) {

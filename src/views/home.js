@@ -47,12 +47,12 @@ const run = async () => {
   let res = null;
   try {
     const handleFlashes = () => {
-      if (res.data.user.auth.flashSuccess) {
+      if (res.data.auth.flashSuccess) {
         document.querySelector('.flash-success')
           .classList
           .remove('hide');
       }
-      if (res.data.user.auth.flashDanger) {
+      if (res.data.auth.flashDanger) {
         document.querySelector('.flash-danger')
           .classList
           .remove('hide');
@@ -64,17 +64,17 @@ const run = async () => {
     console.log(res);
     document
       .querySelector('.page-header')
-      .textContent = res.data.user.page.title;
+      .textContent = res.data.page.title;
 
     handleFlashes();
     
-    const lastLoggedIn = moment(res.data.user.auth.lastLogin).fromNow();
+    const lastLoggedIn = moment(res.data.auth.lastLogin).fromNow();
     document
       .querySelector('.last-login')
       .textContent = 
-        `Last logged in as ${res.data.user.auth.name} ${lastLoggedIn}`;
+        `Last logged in as ${res.data.auth.name} ${lastLoggedIn}`;
 
-    renderNavbar(res.data.user.auth);
+    renderNavbar(res.data.auth);
   } catch (err) {
     alert(err.message+' Please quit and reopen the app.');
   }
