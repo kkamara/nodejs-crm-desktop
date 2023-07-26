@@ -29,7 +29,7 @@ async function createWindow() {
         show: false,
      });
 
-    if (!inProduction) {
+    if (!inProduction || true) {
         mainWindow.webContents.openDevTools();
         apiDomain = 'http://localhost:3000';
     } else {
