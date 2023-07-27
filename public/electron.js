@@ -47,12 +47,12 @@ async function createWindow() {
 
   mainWindow.on('closed', () => (mainWindow = null));
 }
- 
+
 function showHomepage() {
   mainWindow.loadURL(`file://${path.join(
     __dirname,
     '/../', 
-    'src/views/home.html', 
+    'src/views/dashboard.html', 
   )}`);
 }
  
