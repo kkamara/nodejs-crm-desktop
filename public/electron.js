@@ -10,85 +10,85 @@ const inProduction = app.isPackaged;
 let mainWindow = null;
 let apiDomain = null;
 const preload = path.join(
-    __dirname, 
-    '../',
-    'preload.js',
+  __dirname, 
+  '../',
+  'preload.js',
 );
 
 async function createWindow() {    
-    mainWindow = new BrowserWindow({ 
-        width: 900, 
-        height: 680, 
-        webPreferences: {
-            preload,
-            devTools: inProduction ? false : true,
-            nodeIntegration: true,
-            contextIsolation: true,
-            enableRemoteModule: true,
-        },
-        show: false,
-     });
+  mainWindow = new BrowserWindow({ 
+    width: 900, 
+    height: 680, 
+    webPreferences: {
+      preload,
+      devTools: inProduction ? false : true,
+      nodeIntegration: true,
+      contextIsolation: true,
+      enableRemoteModule: true,
+    },
+    show: false,
+  });
 
-    if (!inProduction || true) {
-        mainWindow.webContents.openDevTools();
-        apiDomain = 'http://localhost:3000';
-    } else {
-        apiDomain = null;
-    }
+  if (!inProduction || true) {
+    mainWindow.webContents.openDevTools();
+    apiDomain = 'http://localhost:3000';
+  } else {
+    apiDomain = null;
+  }
 
-    mainWindow.loadURL(`file://${path.join(
-        __dirname,
-        '/../', 
-        'src/views/auth/login.html', 
-    )}`); // index.html?exampleArg=test
+  mainWindow.loadURL(`file://${path.join(
+    __dirname,
+    '/../', 
+    'src/views/auth/login.html', 
+  )}`); // index.html?exampleArg=test
 
-    mainWindow.maximize();
-    mainWindow.show();
+  mainWindow.maximize();
+  mainWindow.show();
 
-    mainWindow.on('closed', () => (mainWindow = null));
+  mainWindow.on('closed', () => (mainWindow = null));
 }
  
 function showHomepage() {
-    mainWindow.loadURL(`file://${path.join(
-        __dirname,
-        '/../', 
-        'src/views/home.html', 
-    )}`);
+  mainWindow.loadURL(`file://${path.join(
+    __dirname,
+    '/../', 
+    'src/views/home.html', 
+  )}`);
 }
  
 function showLogin() {
-    mainWindow.loadURL(`file://${path.join(
-        __dirname,
-        '/../', 
-        'src/views/auth/login.html', 
-    )}`);
+  mainWindow.loadURL(`file://${path.join(
+    __dirname,
+    '/../', 
+    'src/views/auth/login.html', 
+  )}`);
 }
 
 ipcMain.on('getApiDomain', () => {
-    mainWindow.webContents.send(
-        'getApiDomainData', 
-        apiDomain,
-    );    
+  mainWindow.webContents.send(
+    'getApiDomainData', 
+    apiDomain,
+  );    
 });
 
 ipcMain.on('showHomepage', () => {
-    showHomepage();
+  showHomepage();
 });showLogin
 
 ipcMain.on('showLogin', () => {
-    showLogin();
+  showLogin();
 });
 
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });
 
 app.on('activate', () => {
-    if (mainWindow === null) {
-        createWindow();
-    }
+  if (mainWindow === null) {
+    createWindow();
+  }
 });
