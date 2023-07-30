@@ -91,6 +91,7 @@ const run = async () => {
           .remove('hide');
     };
   } catch (err) {
+    console.log(err.message);
     alert(err.message+' Please quit and reopen the app.');
   }
 };
