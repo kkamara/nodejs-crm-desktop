@@ -8,12 +8,6 @@
 		},
 		{
 			"path": "../crm"
-		},
-		{
-			"path": "../desktop-multi-window-app"
-		},
-		{
-			"path": "../nodejs-security3"
 		}
 	]
 }
