@@ -4,7 +4,7 @@
 
 # nodejs-crm-desktop
 
-(04-Jul-2023) Electronjs.
+(04-Jul-2023) ElectronJS.
 
 ## Download
 
